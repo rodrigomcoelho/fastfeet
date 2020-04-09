@@ -1,68 +1,75 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1 align="center">
+  <img alt="Fastfeet" title="Fastfeet" src="../fastfeet.png" width="300px" />
+</h1>
 
-## Available Scripts
+FastFeet é o seu aplicativo de entregas favorito, onde você pode adicionar entregadores, destinatários. Um app onde você encontrará os entregadores mais eficientes entregando um serviço de qualidade. FastFeet é um projeto de conclusão de curso da turma [Bootcamp GoStack](https://rocketseat.com.br/gostack) da [Rockeseat](https://rocketseat.com.br/) e contém módulos completos de administração de receitas, chefes e usuários.
 
-In the project directory, you can run:
+## Começando
+Para começar a instalar o `FastFeet` você precisará de alguns softwares/programas instalados em sua maquina ou em um container do [docker](https://www.docker.com/).
 
-### `yarn start`
+### Pré-requisito
+A aplicação FastFeet foi desenvolvida
+ utilizando Node.js, ReactJS e React Native e um banco de dados relacional.
+Lista de softwares necessários para executar aplicação.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. [Node.js](https://nodejs.org/)
+2. [Postgres](https://www.postgresql.org/)
+3. [Redis](https://redis.io/)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Esses programas são excecionais para o funcionamento do programa.
 
-### `yarn test`
+### Instalação
+- Primeiro passo é você clonar o projeto para um diretório em tua maquina (você decide onde ficará).
+- Abra o terminal ou o PowerShell se estiver utilizando o Windows e execute o comando abaixo.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+git clone https://github.com/rodrigomcoelho/fastfeet/
+```
 
-### `yarn build`
+## Configurando o frontend
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Agora será necessário criar um arquivo `.env` no diretório raiz do projeto (frontend) com as configurações abaixo:
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+**Todas as configurações do exemplo devem ser alteradas para as configurações do _teu ambiente local_.**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Exemplo:
+```
+# Axios URL
+REACT_APP_API_URL=http://localhost:3333
+```
 
-### `yarn eject`
+Se preferir você pode utilizar o arquivo `.env.example` presente no projeto como um exemplo a se basear na criação do `.env`.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Para iniciar o projeto, dentro da pasta `fastfeet/frontend` execute os comandos abaixo:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Instalar dependências
+```sh
+yarn
+```
+Iniciar o projeto
+```sh
+yarn start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Agora com o usuário `Administrador` já criado, você pode utiliza-lo para as principais operações na parte web.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
+Usuário: admin@fastfeet.com
+Senha: 123456
+```
 
-## Learn More
+## :memo: Licença
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**Rodrigo Coelho** – rodrigo.coelho@hotmail.com.br
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](/LICENSE) para mais detalhes.
 
-### Code Splitting
+[https://github.com/rodrigomcoelho/](https://github.com/rodrigomcoelho/)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+## Contribuição
 
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+1. Faça o _fork_ do projeto (<https://github.com/rodrigomcoelho/fastfeet/fork>)
+2. Crie uma _branch_ para sua modificação (`git checkout -b feature/new-feature`)
+3. Faça o _commit_ (`git commit -am 'Add some feature'`)
+4. _Push_ (`git push origin feature/new-feature`)
+5. Crie um novo _Pull Request_

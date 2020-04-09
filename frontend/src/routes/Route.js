@@ -10,8 +10,6 @@ import AuthLayout from '../pages/_layouts/auth';
 function RouteWrapper({ component: Component, isPrivate, ...rest }) {
   const { signed } = store.getState().auth;
 
-  // console.log(signed);
-
   if (!signed && isPrivate) return <Redirect to="/" />;
 
   if (signed && !isPrivate) return <Redirect to="/deliveries" />;

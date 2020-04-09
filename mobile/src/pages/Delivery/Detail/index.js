@@ -73,13 +73,15 @@ export default function Detail({ navigation, route }) {
   }, [delivery.status]);
 
   async function startDelivery() {
-    const {
-      data: { start_date },
-    } = await api.put(`/deliveries/${deliveryId}/withdraw`, {
-      start_date: new Date(),
-    });
-
-    setDelivery({ ...delivery, start_date });
+    try {
+      const {data: { start_date } } = await api.put(`/deliveries/${deliveryId}/withdraw`, {
+        start_date: new Date(),
+      });
+      setDelivery({ ...delivery, start_date });
+    } catch (error) {
+      const { data } = error.response;
+      Alert.alert(data.error);
+    }
   }
 
   return (
