@@ -7,7 +7,7 @@ import { Container, Avatar, Initials } from './styles';
 
 export default function SmallPicture({ avatar, name }) {
   const { url } = avatar || '';
-  const initial = wordUpper(name);
+  const initial = name ? wordUpper(name) : '^^' ;
   return (
     <Container>
       {url ? <Avatar src={url} alt={name} /> : <Initials>{initial}</Initials>}

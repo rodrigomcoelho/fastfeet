@@ -1,4 +1,3 @@
-import * as Yup from 'yup';
 import { Op } from 'sequelize';
 
 import Delivery from '../models/Delivery';
@@ -7,11 +6,19 @@ import Recipient from '../models/Recipient';
 import File from '../models/File';
 
 import Queue from '../../lib/Queue';
+import Cache from '../../lib/Cache';
 import NewDeliveryMain from '../jobs/NewDeliveryMain';
 
 class DeliveryController {
   async index(req, res) {
     const { page = 1, limit = 5, order, q, allActive } = req.query;
+
+    const cachedKey =
+      `deliveries:${allActive}` +
+      `:page:${page}:limit:${limit}:order:${order}:q:${q}`;
+
+    const cached = await Cache.get(cachedKey);
+    if (cached) return res.json(cached);
 
     const where = q ? { product: { [Op.iLike]: `%${q}%` } } : {};
 
@@ -57,6 +64,8 @@ class DeliveryController {
       order: sort,
     });
 
+    Cache.set(cachedKey, deliveries);
+
     return res.json(deliveries);
   }
 
@@ -98,21 +107,6 @@ class DeliveryController {
   }
 
   async store(req, res) {
-    const schema = Yup.object().shape({
-      product: Yup.string().required(),
-      recipient_id: Yup.number()
-        .required()
-        .integer()
-        .positive(),
-      deliveryman_id: Yup.number()
-        .required()
-        .integer()
-        .positive(),
-    });
-
-    if (!(await schema.isValid(req.body)))
-      return res.status(400).json({ error: 'Validation fails' });
-
     const { product, recipient_id, deliveryman_id } = req.body;
 
     let delivery = await Delivery.create({
@@ -133,23 +127,12 @@ class DeliveryController {
 
     Queue.add(NewDeliveryMain.key, { delivery });
 
+    await Cache.invalidate('deliveries');
+
     return res.json({ id: delivery.id, product, recipient_id, deliveryman_id });
   }
 
   async update(req, res) {
-    const schema = Yup.object().shape({
-      product: Yup.string(),
-      recipient_id: Yup.number()
-        .integer()
-        .positive(),
-      deliveryman_id: Yup.number()
-        .integer()
-        .positive(),
-    });
-
-    if (!(await schema.isValid(req.body)))
-      return res.status(400).json({ error: 'Validation fails' });
-
     const { id } = req.params;
 
     const delivery = await Delivery.findByPk(id);
@@ -159,6 +142,8 @@ class DeliveryController {
     const { product, recipient_id, deliveryman_id } = req.body;
 
     await delivery.update({ product, recipient_id, deliveryman_id });
+
+    await Cache.invalidate('deliveries');
 
     return res.json(delivery);
   }

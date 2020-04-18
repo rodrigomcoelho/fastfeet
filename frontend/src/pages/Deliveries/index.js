@@ -111,15 +111,15 @@ export default function Deliveries() {
             {deliveries.map(delivery => (
               <tr key={delivery.id}>
                 <td>#{delivery.id}</td>
-                <td>{delivery.recipient.name}</td>
+                <td>{delivery.recipient && delivery.recipient.name}</td>
                 <td>
                   <SmallPicture
-                    avatar={delivery.deliveryman.avatar}
-                    name={delivery.deliveryman.name}
+                    avatar={delivery.deliveryman && delivery.deliveryman.avatar}
+                    name={delivery.deliveryman && delivery.deliveryman.name}
                   />
                 </td>
-                <td>{delivery.recipient.city}</td>
-                <td>{delivery.recipient.state}</td>
+                <td>{delivery.recipient && delivery.recipient.city}</td>
+                <td>{delivery.recipient && delivery.recipient.state}</td>
                 <td>
                   <TableDataStatus status={delivery.status}>
                     <span>

@@ -2,3 +2,5 @@ node_modules
 yarn.lock
 .env
 .vscode
+tmp/uploads/*
+!tmp/uploads/.gitkeep

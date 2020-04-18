@@ -44,7 +44,7 @@ export default function DeliveryItem({ data, onClick }) {
 
           <View>
             <DatailsDate>Cidade</DatailsDate>
-            <DetailsInfo>{data.recipient.city}</DetailsInfo>
+            <DetailsInfo>{data.recipient && data.recipient.city}</DetailsInfo>
           </View>
 
           <TouchableOpacity onPress={onClick}>
@@ -63,7 +63,7 @@ DeliveryItem.propTypes = {
     status: PropTypes.string.isRequired,
     recipient: PropTypes.shape({
       city: PropTypes.string.isRequired,
-    }).isRequired,
+    }),
   }).isRequired,
   onClick: PropTypes.func.isRequired,
 };

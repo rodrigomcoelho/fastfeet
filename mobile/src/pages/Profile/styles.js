@@ -10,6 +10,7 @@ export const Container = styled.SafeAreaView`
 
 export const Content = styled.View`
   width: 100%;
+  height: 100%;
 `;
 
 export const Preview = styled.View`
@@ -23,7 +24,9 @@ export const Avatar = styled.Image`
   border-radius: 68px;
 `;
 
-export const Body = styled.View``;
+export const Body = styled.View`
+  flex: 1;
+`;
 
 export const FieldName = styled.Text`
   margin-top: 15px;

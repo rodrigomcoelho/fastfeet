@@ -88,13 +88,13 @@ export default function Register() {
               type="text"
               name="city"
               placeholder="Canarana"
-              label="Canarana"
+              label="Cidade"
             />
 
             <Input
               type="text"
               name="state"
-              placeholder="Mato Grosso"
+              placeholder="MT"
               label="Estado"
             />
 

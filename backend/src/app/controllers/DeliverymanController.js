@@ -1,4 +1,3 @@
-import * as Yup from 'yup';
 import { Op } from 'sequelize';
 import Deliveryman from '../models/Deliveryman';
 import File from '../models/File';
@@ -29,19 +28,6 @@ class DeliverymanController {
   }
 
   async store(req, res) {
-    const schema = Yup.object().shape({
-      name: Yup.string().required(),
-      email: Yup.string()
-        .email()
-        .required(),
-      avatar_id: Yup.number()
-        .integer()
-        .positive(),
-    });
-
-    if (!(await schema.isValid(req.body)))
-      return res.status(400).json({ error: 'Invalid params' });
-
     const { name, email, avatar_id } = req.body;
 
     const existUser = await Deliveryman.findOne({ where: { email } });
@@ -72,17 +58,6 @@ class DeliverymanController {
     const { id } = req.params;
 
     if (!id) return res.status(400).json({ error: 'ID param invald' });
-
-    const schema = Yup.object().shape({
-      name: Yup.string(),
-      email: Yup.string().email(),
-      avatar_id: Yup.number()
-        .positive()
-        .integer(),
-    });
-
-    if (!(await schema.isValid(req.body)))
-      return res.status(400).json({ error: 'Invalid params' });
 
     const { name, email, avatar_id } = req.body;
 

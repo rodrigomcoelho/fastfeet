@@ -15,17 +15,36 @@ import CancelDeliveryController from '../app/controllers/CancelDeliveryControlle
 import ProblemController from '../app/controllers/ProblemController';
 
 import authMiddleware from '../app/middlewares/auth';
+import bruteForce from '../lib/Brute';
+
+import SessionStoreValidator from '../app/validators/SessionStore';
+import DeliveryStoreValidator from '../app/validators/DeliveryStore';
+import DeliveryUpdateValidator from '../app/validators/DeliveryUpdate';
+import DeliverymanStoreValidator from '../app/validators/DeliverymanStore';
+import DeliverymanUpdateValidator from '../app/validators/DeliverymanUpdate';
+import ProblemDeliveryStoreValidator from '../app/validators/ProblemDeliveryStore';
+import RecipientStoreValidator from '../app/validators/RecipientStore';
+import RecipientUpdateValidator from '../app/validators/RecipientUpdate';
 
 const router = new Router();
 
 const updateFile = multer(multerConfig);
 
-router.post('/session', SessionController.store);
+router.post(
+  '/session',
+  bruteForce.prevent,
+  SessionStoreValidator,
+  SessionController.store
+);
+
 router.get('/deliverymen/:id', DeliverymanController.show);
 router.get('/deliverymen/:id/deliveries', WithdrawDeliveryController.index);
 router.get('/deliveries/:id', DeliveryController.show);
 
-router.put('/deliveries/:id/withdraw', WithdrawDeliveryController.update);
+router.put(
+  '/deliveries/:id/deliveries/:deliverymanId/withdraw',
+  WithdrawDeliveryController.update
+);
 
 router.put(
   '/deliveries/:id/complete',
@@ -34,25 +53,45 @@ router.put(
 );
 
 router.get('/deliveries/:id/problems', ProblemDeliveryController.index);
-router.post('/deliveries/:id/problems', ProblemDeliveryController.store);
+router.post(
+  '/deliveries/:id/problems',
+  ProblemDeliveryStoreValidator,
+  ProblemDeliveryController.store
+);
 
 router.use(authMiddleware);
 
 router.get('/recipients', RecipientController.index);
 router.get('/recipients/:id', RecipientController.show);
-router.post('/recipients', RecipientController.store);
-router.put('/recipients/:id', RecipientController.update);
+router.post('/recipients', RecipientStoreValidator, RecipientController.store);
+router.put(
+  '/recipients/:id',
+  RecipientUpdateValidator,
+  RecipientController.update
+);
 router.delete('/recipients/:id', RecipientController.delete);
 
 router.get('/deliverymen', DeliverymanController.index);
-router.post('/deliverymen', DeliverymanController.store);
-router.put('/deliverymen/:id', DeliverymanController.update);
+router.post(
+  '/deliverymen',
+  DeliverymanStoreValidator,
+  DeliverymanController.store
+);
+router.put(
+  '/deliverymen/:id',
+  DeliverymanUpdateValidator,
+  DeliverymanController.update
+);
 router.delete('/deliverymen/:id', DeliverymanController.delete);
 
 router.post('/files', updateFile.single('file'), FileController.store);
 
-router.post('/deliveries', DeliveryController.store);
-router.put('/deliveries/:id', DeliveryController.update);
+router.post('/deliveries', DeliveryStoreValidator, DeliveryController.store);
+router.put(
+  '/deliveries/:id',
+  DeliveryUpdateValidator,
+  DeliveryController.update
+);
 router.delete('/deliveries/:id', DeliveryController.delete);
 router.get('/deliveries', DeliveryController.index);
 

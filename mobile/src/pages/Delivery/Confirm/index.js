@@ -93,7 +93,9 @@ export default function Confirm({ navigation, route }) {
             />
           </TakePicture>
         </CameraContainer>
-        <Button onPress={() => completeDelivery()}>Enviar</Button>
+        <Button onPress={() => completeDelivery()} enabled={!!delivery.uri}>
+          Enviar
+        </Button>
       </Container>
     </>
   );

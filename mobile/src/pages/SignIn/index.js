@@ -30,7 +30,7 @@ export default function SignIn() {
         onSubmitEditing={handlerSubmit}
       />
 
-      <Button loading={loading} onPress={handlerSubmit}>
+      <Button loading={loading} onPress={handlerSubmit} enabled={!!id}>
         Entra no sistema
       </Button>
     </Container>

@@ -27,6 +27,7 @@ export default function ReportProblem({ navigation, route }) {
   const [loading, setLoading] = useState(false);
 
   async function handlerSubmit() {
+    if (!problem) return;
     setLoading(true);
 
     await api.post(`/deliveries/${deliveryId}/problems`, {
@@ -54,7 +55,7 @@ export default function ReportProblem({ navigation, route }) {
           />
         </InputContainer>
 
-        <Button loading={loading} onPress={handlerSubmit}>
+        <Button loading={loading} onPress={handlerSubmit} enabled={!!problem}>
           Enviar
         </Button>
       </Container>

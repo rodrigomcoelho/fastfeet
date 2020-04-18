@@ -51,8 +51,10 @@ export default function Profile() {
             <FieldValue>{user.email}</FieldValue>
             <FieldName>Data de Cadastro</FieldName>
             <FieldValue>{dateFormmated}</FieldValue>
-            <LogoutButton onPress={signOff}>Logout</LogoutButton>
           </Body>
+          <LogoutButton onPress={signOff} enabled>
+            Logout
+          </LogoutButton>
         </Content>
       )}
     </Container>

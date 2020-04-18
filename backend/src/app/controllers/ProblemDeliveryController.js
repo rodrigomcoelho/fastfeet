@@ -1,4 +1,3 @@
-import * as Yup from 'yup';
 import Problem from '../models/Problem';
 import Delivery from '../models/Delivery';
 
@@ -20,13 +19,6 @@ class ProblemDeliveryController {
   }
 
   async store(req, res) {
-    const schema = Yup.object().shape({
-      description: Yup.string().required(),
-    });
-
-    if (!(await schema.isValid(req.body)))
-      return res.status(400).json({ error: 'Invalid params' });
-
     const { id } = req.params;
 
     if (!id) return res.status(400).json({ error: 'Delivery ID invalid' });

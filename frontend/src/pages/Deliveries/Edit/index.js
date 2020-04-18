@@ -23,11 +23,13 @@ export default function Edit({ match }) {
       const { data } = await api.get(`/deliveries/${id}`);
       formRef.current.setData(data);
 
+      if (data.deliveryman)
       formRef.current.setFieldValue('deliveryman_id', {
         value: data.deliveryman.id,
         label: data.deliveryman.name,
       });
 
+      if (data.recipient)
       formRef.current.setFieldValue('recipient_id', {
         value: data.recipient.id,
         label: data.recipient.name,

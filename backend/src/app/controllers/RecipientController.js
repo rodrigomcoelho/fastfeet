@@ -1,4 +1,3 @@
-import * as Yup from 'yup';
 import { Op } from 'sequelize';
 import Recipient from '../models/Recipient';
 
@@ -24,22 +23,6 @@ class RecipientController {
   }
 
   async store(req, res) {
-    const schema = Yup.object().shape({
-      name: Yup.string().required(),
-      street: Yup.string().required(),
-      address1: Yup.string(),
-      number: Yup.number()
-        .required()
-        .positive()
-        .integer(),
-      state: Yup.string().required(),
-      city: Yup.string().required(),
-      zipcode: Yup.string().required(),
-    });
-
-    if (!(await schema.isValid(req.body)))
-      return res.status(400).json({ error: 'Invalid params' });
-
     const { name, street, address1, number, state, city, zipcode } = req.body;
 
     const recipient = await Recipient.create({
@@ -56,22 +39,6 @@ class RecipientController {
   }
 
   async update(req, res) {
-    const schema = Yup.object().shape({
-      name: Yup.string().required(),
-      street: Yup.string().required(),
-      address1: Yup.string(),
-      number: Yup.number()
-        .required()
-        .positive()
-        .integer(),
-      state: Yup.string().required(),
-      city: Yup.string().required(),
-      zipcode: Yup.string().required(),
-    });
-
-    if (!(await schema.isValid(req.body)))
-      return res.status(400).json({ error: 'Invalid params' });
-
     const { id } = req.params;
 
     const recipient = await Recipient.findByPk(id);
