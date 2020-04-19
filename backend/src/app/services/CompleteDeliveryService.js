@@ -29,6 +29,9 @@ class CompleteDeliveryService {
 
     const { product, recipient_id, start_date } = delivery;
 
+    if (!recipient_id)
+      throw new AppError('You cannot delivery with a recipient address');
+
     return { id, product, recipient_id, start_date, end_date, file };
   }
 }

@@ -59,7 +59,7 @@ function Edit({ match }) {
 
   return (
     <FormContainer>
-      <h1>Cadastro de desitinários</h1>
+      <h1>Editando destinatários</h1>
       <Form onSubmit={handleSubmit} ref={formRef}>
         <ButtonSection>
           <BackButton to="/recipients" />

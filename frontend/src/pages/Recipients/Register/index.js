@@ -51,7 +51,7 @@ export default function Register() {
 
   return (
     <FormContainer>
-      <h1>Cadastro de desitinários</h1>
+      <h1>Cadastro de destinatário</h1>
       <Form onSubmit={handleSubmit} ref={formRef}>
         <ButtonSection>
           <BackButton to="/recipients" />

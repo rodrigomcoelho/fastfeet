@@ -55,6 +55,9 @@ class WithdrawDeliveryService {
     if (delivery.start_date)
       throw new AppError('You have already started the delivery');
 
+    if (!recipient_id)
+      throw new AppError('You cannot delivery with a recipient address');
+
     delivery.start_date = start_date;
 
     await delivery.save();

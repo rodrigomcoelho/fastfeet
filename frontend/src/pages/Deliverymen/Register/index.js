@@ -48,7 +48,7 @@ export default function Register() {
   }
   return (
     <FormContainer>
-      <h1>Cadastrando entregador</h1>
+      <h1>Cadastro de entregador</h1>
       <Form onSubmit={handleSubmit} ref={formRef}>
         <Content>
           <ButtonSection>

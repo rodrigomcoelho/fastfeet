@@ -63,7 +63,7 @@ export default function Edit({ match }) {
           .typeError('Destinatário é obrigado')
           .integer()
           .positive()
-          .required('Entregador obrigatório'),
+          .required('Destinatário obrigatório'),
         deliveryman_id: Yup.number()
           .integer()
           .positive()

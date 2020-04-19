@@ -6,19 +6,11 @@ import Recipient from '../models/Recipient';
 import File from '../models/File';
 
 import Queue from '../../lib/Queue';
-import Cache from '../../lib/Cache';
 import NewDeliveryMain from '../jobs/NewDeliveryMain';
 
 class DeliveryController {
   async index(req, res) {
     const { page = 1, limit = 5, order, q, allActive } = req.query;
-
-    const cachedKey =
-      `deliveries:${allActive}` +
-      `:page:${page}:limit:${limit}:order:${order}:q:${q}`;
-
-    const cached = await Cache.get(cachedKey);
-    if (cached) return res.json(cached);
 
     const where = q ? { product: { [Op.iLike]: `%${q}%` } } : {};
 
@@ -63,8 +55,6 @@ class DeliveryController {
       offset: (page - 1) * limit,
       order: sort,
     });
-
-    Cache.set(cachedKey, deliveries);
 
     return res.json(deliveries);
   }
@@ -127,8 +117,6 @@ class DeliveryController {
 
     Queue.add(NewDeliveryMain.key, { delivery });
 
-    await Cache.invalidate('deliveries');
-
     return res.json({ id: delivery.id, product, recipient_id, deliveryman_id });
   }
 
@@ -142,8 +130,6 @@ class DeliveryController {
     const { product, recipient_id, deliveryman_id } = req.body;
 
     await delivery.update({ product, recipient_id, deliveryman_id });
-
-    await Cache.invalidate('deliveries');
 
     return res.json(delivery);
   }

@@ -87,8 +87,9 @@ export default function Detail({ navigation, route }) {
       );
       setDelivery({ ...delivery, start_date });
     } catch (error) {
+      const { response } = error;
       console.tron.log(error.response);
-      const { data } = error.response;
+      const { data } = response;
       Alert.alert(data.error);
     }
   }

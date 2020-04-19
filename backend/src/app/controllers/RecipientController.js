@@ -1,6 +1,8 @@
 import { Op } from 'sequelize';
 import Recipient from '../models/Recipient';
 
+import Cache from '../../lib/Cache';
+
 class RecipientController {
   async index(req, res) {
     const { page = 1, limit = 20, q, all, order } = req.query;
@@ -48,16 +50,25 @@ class RecipientController {
 
     await recipient.update(req.body);
 
+    const cachedKey = `recipient:${id}`;
+    await Cache.invalidate(cachedKey);
+
     return res.json(recipient);
   }
 
   async show(req, res) {
     const { id } = req.params;
 
+    const cachedKey = `recipient:${id}`;
+    const cached = await Cache.get(cachedKey);
+    if (cached) return res.json(cached);
+
     const recipient = await Recipient.findByPk(id);
 
     if (!recipient)
       return res.status(400).json({ error: 'Recipient not found' });
+
+    Cache.set(cachedKey, recipient);
 
     return res.json(recipient);
   }
@@ -66,6 +77,9 @@ class RecipientController {
     const { id } = req.params;
 
     await Recipient.destroy({ where: { id } });
+
+    const cachedKey = `recipient:${id}`;
+    await Cache.invalidate(cachedKey);
 
     return res.json();
   }
